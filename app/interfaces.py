@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-from typing import Awaitable
 from entities import Credentials, User, UserToken
 
 
@@ -20,11 +19,17 @@ class SyncTokenServiceInterface(ABC):
 
 
 class AsyncTokenServiceInterface:
-    def _authenticate(self, credentials: Credentials) -> Awaitable[User]:
-        raise NotImplementedError
+    @abstractmethod
+    async def _authenticate(self, credentials: Credentials) -> User:
+        pass
 
-    def _issue_token(self, user: User) -> Awaitable[UserToken]:
-        raise NotImplementedError
+    @abstractmethod
+    async def _issue_token(self, user: User) -> UserToken:
+        pass
 
-    def request_token(self, credentials: Credentials) -> Awaitable[UserToken]:
-        raise NotImplementedError
+    async def request_token(self, credentials: Credentials) -> UserToken:
+        authenticated_user = await self._authenticate(credentials)
+        if not authenticated_user:
+            raise Exception("Invalid username or password")
+        user_token = await self._issue_token(authenticated_user)
+        return user_token
