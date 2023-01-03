@@ -1,8 +1,9 @@
-from abc import ABC, abstractmethod
+from typing import Protocol
+from abc import abstractmethod
 from .entities import Credentials, User, UserToken
 
 
-class SyncTokenServiceInterface(ABC):
+class SyncTokenServiceInterface(Protocol):
     @abstractmethod
     def _authenticate(self, credentials: Credentials) -> User:
         pass
@@ -18,7 +19,7 @@ class SyncTokenServiceInterface(ABC):
         return self._issue_token(authenticated_user)
 
 
-class AsyncTokenServiceInterface:
+class AsyncTokenServiceInterface(Protocol):
     @abstractmethod
     async def _authenticate(self, credentials: Credentials) -> User:
         pass
