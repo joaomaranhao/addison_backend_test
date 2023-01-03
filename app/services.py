@@ -21,7 +21,7 @@ class AsyncTokenService(AsyncTokenServiceInterface):
         return UserToken("any_token_ASYNC")
 
 
-class SimpleAsyncTokenService(AsyncTokenService):
+class SimpleAsyncTokenService(AsyncTokenServiceInterface):
     async def _authenticate(self, credentials: Credentials) -> User:
         await asyncio.sleep(random.randint(0, 5))
         if credentials.password == credentials.username.upper():
