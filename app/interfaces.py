@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from entities import Credentials, User, UserToken
+from .entities import Credentials, User, UserToken
 
 
 class SyncTokenServiceInterface(ABC):

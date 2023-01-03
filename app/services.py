@@ -1,8 +1,8 @@
 import random
 import asyncio
 from datetime import datetime
-from interfaces import SyncTokenServiceInterface, AsyncTokenServiceInterface
-from entities import Credentials, User, UserToken
+from .interfaces import SyncTokenServiceInterface, AsyncTokenServiceInterface
+from .entities import Credentials, User, UserToken
 
 
 class SyncTokenService(SyncTokenServiceInterface):
